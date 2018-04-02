@@ -102,6 +102,7 @@ how well they work together).
 * [Slice Notation](https://github.com/gsathya/proposal-slice-notation)
 * [BigInt](https://github.com/tc39/proposal-bigint)
 * [`throw` Expressions](https://github.com/rbuckton/proposal-throw-expressions)
+* [Extensible numeric literals](https://github.com/tc39/proposal-extended-numeric-literals)
 
 ## <a name="match-operator"></a> 1 Match Operator
 
@@ -259,9 +260,13 @@ match (input) {
 Initializers:
 ```js
 match (input) {
-  // matches if `input` is an object, whether or not it has an `x` property, and
-  // sets `x` to `1` if `x` does not already exist on the object
+  // matches `input` if it's an object. If `input` is `undefined`, match is set
+  // to `{x: 1}`, and x is bound to 1.
   {x} = {x: 1} => ...,
+  // matches if `input` is an object, whether or not it has an `x` property, and
+  // sets `x` to `1` if `x` does not already exist on the object. Does NOT
+  // match if `input` is undefined.
+  {x: x = 1} => ...
 }
 ```
 
